@@ -1,2 +1,2 @@
 # VRFarming
- Oculus Questで農場経営をするゲームです
+ VRで農場経営をするゲームです
