@@ -38,6 +38,8 @@ public class Mustang : MonoBehaviour
         var dot = 1.0f;
         for (var index = 0; index < boneids.Length-1; index++)
         {
+            if(index > boneids.Length) continue;
+
             var v = (_oVRSkeleton.Bones[(int)boneids[index+1]].Transform.position - _oVRSkeleton.Bones[(int)boneids[index]].Transform.position).normalized;
             if (oldVec.HasValue)
             {
