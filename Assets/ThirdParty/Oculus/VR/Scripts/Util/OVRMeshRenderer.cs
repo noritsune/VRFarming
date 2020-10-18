@@ -154,7 +154,7 @@ public class OVRMeshRenderer : MonoBehaviour
 			{
 				if (_skinnedMeshRenderer != null && _skinnedMeshRenderer.enabled != shouldRender)
 				{
-					// _skinnedMeshRenderer.enabled = shouldRender;
+					_skinnedMeshRenderer.enabled = shouldRender;
 				}
 			}
 
