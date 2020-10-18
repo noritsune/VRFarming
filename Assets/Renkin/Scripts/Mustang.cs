@@ -21,8 +21,9 @@ public class Mustang : MonoBehaviour
         if(!_oVRHand.IsTracked) return;
 
         var isMiddleStraight = IsStraight(_threshold, OVRSkeleton.BoneId.Hand_Middle1, OVRSkeleton.BoneId.Hand_Middle2, OVRSkeleton.BoneId.Hand_Middle3, OVRSkeleton.BoneId.Hand_MiddleTip);
+        var isIndexStraight = IsStraight(_threshold, OVRSkeleton.BoneId.Hand_Index1, OVRSkeleton.BoneId.Hand_Index2, OVRSkeleton.BoneId.Hand_Index3, OVRSkeleton.BoneId.Hand_IndexTip);
 
-        if(!isMiddleStraight && _isMiddleStraight_old)
+        if(!isMiddleStraight && _isMiddleStraight_old && isIndexStraight)
         {
             Instantiate(
                 _fire_base, 
