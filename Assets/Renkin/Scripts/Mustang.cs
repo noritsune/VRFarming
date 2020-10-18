@@ -2,11 +2,10 @@
 
 public class Mustang : MonoBehaviour
 {
-    [SerializeField, Range(0, 1)]
-    private float _threshold;
     [SerializeField]
     private GameObject _fire_base;
 
+    private float _threshold = 0.27f;
     private OVRSkeleton _oVRSkeleton;
     private OVRHand _oVRHand;
     private bool _isMiddleStraight_old = false;
