@@ -8,15 +8,19 @@ public class Mustang : MonoBehaviour
     private GameObject _fire_base;
 
     private OVRSkeleton _oVRSkeleton;
+    private OVRHand _oVRHand;
     private bool _isMiddleStraight_old = false;
 
     private void Start()
     {
         _oVRSkeleton = GetComponent<OVRSkeleton>();
+        _oVRHand = GetComponent<OVRHand>();
     }
 
     private void Update()
     {
+        if(!_oVRHand.IsTracked) return;
+
         var isMiddleStraight = IsStraight(_threshold, OVRSkeleton.BoneId.Hand_Middle1, OVRSkeleton.BoneId.Hand_Middle2, OVRSkeleton.BoneId.Hand_Middle3, OVRSkeleton.BoneId.Hand_MiddleTip);
 
         if(!isMiddleStraight && _isMiddleStraight_old)
@@ -38,8 +42,6 @@ public class Mustang : MonoBehaviour
         var dot = 1.0f;
         for (var index = 0; index < boneids.Length-1; index++)
         {
-            if(index > boneids.Length) continue;
-
             var v = (_oVRSkeleton.Bones[(int)boneids[index+1]].Transform.position - _oVRSkeleton.Bones[(int)boneids[index]].Transform.position).normalized;
             if (oldVec.HasValue)
             {
