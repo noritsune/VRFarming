@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Fire : MonoBehaviour
+public class DestroyTimer : MonoBehaviour
 {
+    [SerializeField]
+    private float lifeTime;
+
     private void Start()
     {
         StartCoroutine(CoDestoroyMyself());
@@ -10,7 +13,7 @@ public class Fire : MonoBehaviour
 
     private IEnumerator CoDestoroyMyself()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(lifeTime);
         Destroy(gameObject);
     }
 }
