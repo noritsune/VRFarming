@@ -13,7 +13,6 @@ public class Edward : MonoBehaviour
     private Transform _magicCircle_onGround_generateTrans;
 
     private string _anotherHandTag;
-    private bool _canGenerateGroundCircle = false;
 
     private void Start()
     {
@@ -29,12 +28,10 @@ public class Edward : MonoBehaviour
             {
                 magicCircleOnHands.SetActive(true);
             }
-
-            _canGenerateGroundCircle = true;
         }
         else if(other.tag.Equals("Floor"))
         {
-            if(!_magicCirclesOnHands[0].activeSelf || !_canGenerateGroundCircle) return;
+            if(!_magicCirclesOnHands[0].activeSelf) return;
 
             //地面に魔法陣を出す
             Instantiate(
@@ -43,7 +40,10 @@ public class Edward : MonoBehaviour
                 _magicCircle_onGround_generateTrans.rotation
             );
 
-            _canGenerateGroundCircle = false;
+            foreach (var magicCircleOnHands in _magicCirclesOnHands)
+            {
+                magicCircleOnHands.SetActive(false);
+            }
         }
     }
 }
