@@ -6,11 +6,14 @@ public class Edward : MonoBehaviour
     [SerializeField]
     private OVRHand.Hand _handType;
     [SerializeField]
-    private List<GameObject> _magicCircles;
+    private List<GameObject> _magicCirclesOnHands;
     [SerializeField]
-    private GameObject _magicCircles_onGround;
+    private GameObject _magicCircle_onGround;
+    [SerializeField]
+    private Transform _magicCircle_onGround_generateTrans;
 
     private string _anotherHandTag;
+    private bool _canGenerateGroundCircle = false;
 
     private void Start()
     {
@@ -21,21 +24,26 @@ public class Edward : MonoBehaviour
     {
         if(other.tag.Equals(_anotherHandTag))
         {
-            Debug.Log("両手を合わせた！");
-
             //手の甲に魔法陣を出す
-            foreach (var magicCircle in _magicCircles)
+            foreach (var magicCircleOnHands in _magicCirclesOnHands)
             {
-                magicCircle.SetActive(true);
+                magicCircleOnHands.SetActive(true);
             }
-        }
 
-        if(other.tag.Equals("Floor"))
+            _canGenerateGroundCircle = true;
+        }
+        else if(other.tag.Equals("Floor"))
         {
-            if(!_magicCircles[0].activeSelf) return;
+            if(!_magicCirclesOnHands[0].activeSelf || !_canGenerateGroundCircle) return;
 
             //地面に魔法陣を出す
-            _magicCircles_onGround.SetActive(true);
+            Instantiate(
+                _magicCircle_onGround,
+                _magicCircle_onGround_generateTrans.position,
+                _magicCircle_onGround_generateTrans.rotation
+            );
+
+            _canGenerateGroundCircle = false;
         }
     }
 }
