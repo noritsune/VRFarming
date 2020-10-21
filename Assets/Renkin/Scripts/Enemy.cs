@@ -1,23 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
+using TMPro;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField]
     private Transform _playerTrans;
+    [SerializeField]
+    private EnemyResponer _enemyResponer;
+    [SerializeField]
+    private TextMeshPro _scoreNum;
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
     private bool _isDead;
-    private EnemyResponer _enemyResponer;
 
     void Start()
     {
-        _playerTrans = GameObject.Find("CenterEyeAnchor").transform;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
         _animator.SetFloat("MoveSpeed", _navMeshAgent.speed * 5);
         _isDead = false;
-        _enemyResponer = FindObjectOfType<EnemyResponer>();
     }
 
     void Update()
@@ -37,6 +39,7 @@ public class Enemy : MonoBehaviour
 
     public void OnDestroyMySelf()
     {
+        _scoreNum.text = (int.Parse(_scoreNum.text) + 1).ToString();
         gameObject.SetActive(false);
         _enemyResponer.Respone(gameObject);
     }
