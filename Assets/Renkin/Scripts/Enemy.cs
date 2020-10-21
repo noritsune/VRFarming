@@ -50,7 +50,11 @@ public class Enemy : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if(!other.CompareTag("Player") || _isDead || !_canAttack) return;
+        
+        Player player = other.GetComponent<Player>();
+        if(!player) return;
 
+        player.OnGetDamege();
         _animator.SetTrigger("Attack");
         _canAttack = false;
     }
