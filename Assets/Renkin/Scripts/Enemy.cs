@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
     private Transform _playerTrans;
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
-    private bool _isDead = false;
+    private bool _isDead;
+    private EnemyResponer _enemyResponer;
 
     void Start()
     {
@@ -14,6 +16,8 @@ public class Enemy : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
         _animator.SetFloat("MoveSpeed", _navMeshAgent.speed * 5);
+        _isDead = false;
+        _enemyResponer = FindObjectOfType<EnemyResponer>();
     }
 
     void Update()
@@ -33,6 +37,7 @@ public class Enemy : MonoBehaviour
 
     public void OnDestroyMySelf()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        _enemyResponer.Respone(gameObject);
     }
 }
