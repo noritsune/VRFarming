@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
     private bool _isDead;
+    private float _attackSpan = 2;
+    private bool _canAttack = true;
 
     void Start()
     {
@@ -42,5 +45,20 @@ public class Enemy : MonoBehaviour
         _scoreNum.text = (int.Parse(_scoreNum.text) + 1).ToString();
         gameObject.SetActive(false);
         _enemyResponer.Respone(gameObject);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(!other.CompareTag("Player") || _isDead || !_canAttack) return;
+
+        _animator.SetTrigger("Attack");
+        _canAttack = false;
+    }
+
+    public IEnumerator CoAttackCoolTime()
+    {
+        yield return new WaitForSeconds(_attackSpan);
+
+        _canAttack = true;
     }
 }
