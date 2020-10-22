@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        float _maskTransScale = Mathf.Min(_maskTransScale_def, _maskTrans.localScale.x + _damageUnit * 0.1f * Time.deltaTime);
+        float _maskTransScale = Mathf.Min(_maskTransScale_def, _maskTrans.localScale.x + _damageUnit * 0.01f * Time.deltaTime);
         _maskTrans.localScale = Vector3.one * _maskTransScale;
     }
 
