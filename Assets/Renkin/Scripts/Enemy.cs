@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     private float _attackSpan = 2;
     private bool _canAttack = true;
 
-    void Start()
+    void OnEnable()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
